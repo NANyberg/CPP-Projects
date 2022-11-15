@@ -45,7 +45,7 @@ std::vector<std::string> Customer::getAllAccountsAsStrings() {
 		int aAccNum = a.getAccountNumber();
 		allAccounts.push_back(this->getAccountAsString(aAccNum));
 	}
-	return allAccounts; 
+	return allAccounts;
 }
 
 bool Customer::setBalance(int& accountId, int& amount) {
@@ -59,15 +59,17 @@ bool Customer::setBalance(int& accountId, int& amount) {
 }
 
 std::string Customer::closeAccount(int& accountId) {
-	int i = 0;
+	int * i = new int(0);
 	for (Account& a : myAccounts) {
 		if (a.getAccountNumber() == accountId) {
 			std::string closedAccount = this->getCalculatedAccountAsString(accountId);
-			myAccounts.erase(myAccounts.begin()+i);
+			myAccounts.erase(myAccounts.begin()+*i);
+			delete i;
 			return closedAccount;
 		}
 		i++;
 	}
+	delete i;
 	return "";
 }
 

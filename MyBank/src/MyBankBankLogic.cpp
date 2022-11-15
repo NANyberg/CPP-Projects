@@ -79,9 +79,10 @@ bool BankLogic::changeCustomerName(std::string& name, std::string& surname, std:
 
 bool BankLogic::changeCustomerPersonalNumber(std::string& pNo, std::string& password) {
 	std::string correctPassword = "Ändrapno";
+	
 	for (Customer& c: myCustomers) {
 		if (c.getPersonalNumber() == pNo) {
-			if (password.compare(correctPassword)) {
+			if (password == correctPassword) {
 				std::string newPno;
 				cout << "\n \t Password correct. What should the new Personal Number be?: " << endl;
 				cin >> newPno;
@@ -92,6 +93,8 @@ bool BankLogic::changeCustomerPersonalNumber(std::string& pNo, std::string& pass
 		}
 		return false;
 	}
+
+	return false;
 }
 
 bool BankLogic::deposit(std::string& pNo, int& accountId, int& amount) {

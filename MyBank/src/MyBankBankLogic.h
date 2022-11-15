@@ -12,7 +12,7 @@ public:
 	
 	bool createCustomer(std::string& name, std::string& surname, std::string& pNo);
 	bool changeCustomerName(std::string& name, std::string& surname, std::string& pNo);
-	bool changeCustomerPersonalNumber(std::string& pNo);
+	bool changeCustomerPersonalNumber(std::string& pNo, std::string& password);
 	bool deposit(std::string& pNo, int& accountId, int& amount);
 	bool withdraw(std::string& pNo, int& accountId, int& amount);
 

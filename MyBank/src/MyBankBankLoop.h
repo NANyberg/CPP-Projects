@@ -5,6 +5,7 @@
 #include "MyBankAccount.h"
 #include "MyBankCustomer.h"
 #include "MyBankBankLogic.h"
+#include "MyBankCreditAccount.h"
 
 void intro();
 void doWhileIntro();
