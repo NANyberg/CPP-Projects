@@ -9,7 +9,7 @@ void intro() {
 	cout << "\t\t Hi! Welcome to Bank of Allegendaro! \t\t" << endl;
 	cout << endl;
 	cout << "\t As Head of Systems, you have access to all our customer information. \t\t" << endl;
-};
+}
 void doWhileIntro() {
 	cout << "\t What action do you wish to perform? \t\t" << endl;
 	cout << endl;
@@ -24,7 +24,7 @@ void doWhileIntro() {
 	cout << "\t 9. Change customer personal number (password required)" << endl;
 
 	cout << "\t 0. Exit program" << endl;
-};
+}
 
 std::string cinCustomerName(string& name) {
 	do {
@@ -59,7 +59,7 @@ int cinValidAmount() {
 	cout << "\t Please, enter the amount to deposit: " << endl;
 	cin >> amount;
 	return amount;
-};
+}
 
 
 int bankLoop(BankLogic myBank) {
@@ -75,7 +75,7 @@ int bankLoop(BankLogic myBank) {
 	std::string closeAccountTest;
 	std::string password;
 	
-	std::vector<std::string> cWithAccounts;
+	std::vector<std::string> *cWithAccounts = new std::vector<std::string>;
 
 	intro();
 
@@ -117,30 +117,35 @@ int bankLoop(BankLogic myBank) {
 			break;
 
 		case 3:
+			*personalNumber= cinPersonalNumber(*personalNumber);		
+
 			if (myBank.createSavingsAccount(*personalNumber) != -1) {
 				cout << "\t Account creation has been successfull! \n\n";
 			}
 			else {
 				cout << "\t Customer not found, account has not been created.";
 			}
+
+			delete personalNumber;
+
 			break;
 
-//		case 4:
-//			string *personalNumber = cinPersonalNumber();
-//			string *cWithAccounts = myBank.getCustomer(personalNumber);
-//
-//			if (cWithAccounts.size() != 0) {
-//				cout << "\t\t Customer information - Balance, Account number, Account type, Interest rate:\n";
-//				for (std::string info : cWithAccounts) {
-//					cout << "\t " << info << endl;
-//				}
-//				cout << "\n\n";
-//			}
-//			else {
-//				cout << "\t Customer does not exist. Try again or try adding one in the main menu! \n\n";
-//			}
-//			break;
-//
+		case 4:
+			*personalNumber = cinPersonalNumber(*personalNumber);
+			*cWithAccounts = myBank.getCustomer(*personalNumber);
+
+			if (cWithAccounts->size() != 0) {
+				cout << "\t\t Customer information - Balance, Account number, Account type, Interest rate:\n";
+				for (std::string& info : *cWithAccounts) {
+					cout << "\t " << info << endl;
+				}
+				cout << "\n\n";
+			}
+			else {
+				cout << "\t Customer does not exist. Try again or try adding one in the main menu! \n\n";
+			}
+			break;
+
 //		case 5:
 //			cout << "\t Please, enter the new name, the new surname and the 10 digit personal number: \n";
 //
@@ -219,7 +224,7 @@ int bankLoop(BankLogic myBank) {
 //			break;
 
 		}
-	} while (systemChoice != 0);
+	} while (*systemChoice != 0);
 	cout << "\n\t See you next time! \n";
 	return 0;
 }
