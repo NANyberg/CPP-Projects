@@ -40,51 +40,51 @@ std::string cinCustomerSurname(string& surname) {
 		return surname;
 	} while (cin);
 }
-std::string cinPersonalNumber(string& personalNumber) {
+std::string cinPersonalNumber(string& pNo) {
 	do {
 		cout << "\t Please, enter your personal number: " << endl;
-		cin >> personalNumber;
-		return personalNumber;
+		cin >> pNo;
+		return pNo;
 	} while (cin);
 }
 
-int cinValidAccountId() {
-	int accountId;
+int cinValidAccountId(int& accountId) {
 	cout << "\t Please, enter the account id to deposit money into: " << endl;
 	cin >> accountId;
 	return accountId;
 }
-int cinValidAmount() {
-	int amount;
+int cinValidAmount(int& amount) {
 	cout << "\t Please, enter the amount to deposit: " << endl;
 	cin >> amount;
 	return amount;
 }
 
 
-int bankLoop(BankLogic myBank) {
-
-	// Declerations
-	int accountId;
-	int * systemChoice = new int;
-	int amount;
-
-	std::string * name = new string;
-	std::string * surname = new string;
-	std::string * personalNumber = new string;
-	std::string closeAccountTest;
-	std::string password;
-	
-	std::vector<std::string> *cWithAccounts = new std::vector<std::string>;
+int bankLoop(BankLogic& myBank) {
 
 	intro();
 
+	int systemChoice;
+
 	do {
+
+		// Declerations
+		int *accountId = new int;
+		int *amount = new int;
+
+		std::string *name = new string;
+		std::string *surname = new string;
+		std::string *personalNumber = new string;
+		std::string closeAccountTest;
+		std::string *password = new string;
+		
+		std::vector<std::string> *cWithAccounts = new std::vector<std::string>;
+
 		doWhileIntro();
 
-		cin >> *systemChoice;
+		cin >> systemChoice;
 
-		switch (*systemChoice) {
+		switch (systemChoice) {
 		case 1:
 			*name = cinCustomerName(*name);
 			*surname = cinCustomerSurname(*surname);
@@ -144,87 +144,113 @@ int bankLoop(BankLogic myBank) {
 			else {
 				cout << "\t Customer does not exist. Try again or try adding one in the main menu! \n\n";
 			}
+
+			delete personalNumber;
+			delete cWithAccounts;
+
 			break;
 
-//		case 5:
-//			cout << "\t Please, enter the new name, the new surname and the 10 digit personal number: \n";
-//
-//			name = cinCustomerName();
-//			surname = cinCustomerSurname();
-//			personalNumber = cinPersonalNumber();
-//
-//			if (myBank.changeCustomerName(name, surname, personalNumber)) {
-//				cout << "\n\t Success! The name has been updated! \n\n";
-//			}
-//			else {
-//				cout << "\n\t Customer not found. Name has not been changed.\n\n";
-//			}
-//			break;
-//
-//		case 6:
-//			cout << "\t Please, enter personal number, account number and amount to deposit: \n";
-//
-//			personalNumber = cinPersonalNumber();
-//			accountId = cinValidAccountId();
-//			amount = cinValidAmount();
-//
-//			if (myBank.deposit(personalNumber, accountId, amount)) {
-//				cout << "\n\t Success! You money has been deposited!\n\n";
-//			}
-//			else {
-//				cout << "\n\t Customer or account not valid. No action was made. \n\n";
-//			}
-//			break;
-//
-//		case 7:
-//			cout << "\t Please, enter personal number, account number and amount to withdraw: \n";
-//
-//			personalNumber = cinPersonalNumber();
-//			accountId = cinValidAccountId();
-//			amount = cinValidAmount();
-//
-//			if (myBank.withdraw(personalNumber, accountId, amount)) {
-//				cout << "\n\t Success! You money has been withdrawn!\n\n";
-//			}
-//			else {
-//				cout << "\n\t Customer or account not valid. No action was made. \n\n";
-//			}
-//			break;
-//
-//		case 8:
-//			cout << "\t Please, enter personal number and account number of the account that should close. \n";
-//
-//			personalNumber = cinPersonalNumber();
-//			accountId = cinValidAccountId();
-//
-//			closeAccountTest = myBank.closeAccount(personalNumber, accountId);
-//			if (closeAccountTest != "") {
-//				cout << "\n\t Success! Your account has been closed. Here are the details: \n";
-//				cout << "\t " << closeAccountTest << "\n\n";
-//			}
-//			else {
-//				cout << "\n\t Sorry, customer or account not found. No action was made. \n\n";
-//			}
-//			break;
-//
-//		case 9:
-//			cout << "\t BE AWARE: This procedure is in need of a password in order to get executed!\n";
-//			
-//			personalNumber = cinPersonalNumber();
-//
-//			cout << "\t Please, enter your password: \n";
-//			cin >> password;
-//			
-//			if (myBank.changeCustomerPersonalNumber(personalNumber, password)) {
-//				cout << "\n\t Success! Your personal number has been updated!\n\n";
-//			}
-//			else {
-//				cout << "\n\t Apologies, we cannot change your personal number.";
-//			}
-//			break;
+		case 5:
+			cout << "\t Please, enter the new name, the new surname and the 10 digit personal number: \n";
+
+			*name = cinCustomerName(*name);
+			*surname = cinCustomerSurname(*surname);
+			*personalNumber = cinPersonalNumber(*personalNumber);
+
+			if (myBank.changeCustomerName(*name, *surname, *personalNumber)) {
+				cout << "\n\t Success! The name has been updated! \n\n";
+			}
+			else {
+				cout << "\n\t Customer not found. Name has not been changed.\n\n";
+			}
+
+			delete name;
+			delete surname;
+			delete personalNumber;
+
+			break;
+
+		case 6:
+			cout << "\t Please, enter personal number, account number and amount to deposit: \n";
+
+			*personalNumber = cinPersonalNumber(*personalNumber);
+			*accountId = cinValidAccountId(*accountId);
+			*amount = cinValidAmount(*amount);
+
+			if (myBank.deposit(*personalNumber, *accountId, *amount)) {
+				cout << "\n\t Success! You money has been deposited!\n\n";
+			}
+			else {
+				cout << "\n\t Customer or account not valid. No action was made. \n\n";
+			}
+
+			delete accountId;
+			delete amount;
+			delete personalNumber;
+
+			break;
+
+		case 7:
+			cout << "\t Please, enter personal number, account number and amount to withdraw: \n";
+
+			*personalNumber = cinPersonalNumber(*personalNumber);
+			*accountId = cinValidAccountId(*accountId);
+			*amount = cinValidAmount(*amount);
+
+			if (myBank.withdraw(*personalNumber, *accountId, *amount)) {
+				cout << "\n\t Success! You money has been withdrawn!\n\n";
+			}
+			else {
+				cout << "\n\t Customer or account not valid. No action was made. \n\n";
+			}
+
+			delete name;
+			delete surname;
+			delete personalNumber;
+			
+			break;
+
+		case 8:
+			cout << "\t Please, enter personal number and account number of the account that should close. \n";
+
+			*personalNumber = cinPersonalNumber(*personalNumber);
+			*accountId = cinValidAccountId(*accountId);
+
+			closeAccountTest = myBank.closeAccount(*personalNumber, *accountId);
+			if (closeAccountTest != "") {
+				cout << "\n\t Success! Your account has been closed. Here are the details: \n";
+				cout << "\t " << closeAccountTest << "\n\n";
+			}
+			else {
+				cout << "\n\t Sorry, customer or account not found. No action was made. \n\n";
+			}
+
+			delete accountId;
+			delete personalNumber;
+
+			break;
+
+		case 9:
+			cout << "\t BE AWARE: This procedure is in need of a password in order to get executed!\n";
+			
+			*personalNumber = cinPersonalNumber(*personalNumber);
+
+			cout << "\t Please, enter your password: \n";
+			cin >> *password;
+
+			if (myBank.changeCustomerPersonalNumber(*personalNumber, *password)) {
+				cout << "\n\t Success! Your personal number has been updated!\n\n";
+			}
+			else {
+				cout << "\n\t Apologies, we cannot change your personal number.";
+			}
+
+			delete personalNumber;
+
+			break;
 
 		}
-	} while (*systemChoice != 0);
+	} while (systemChoice != 0);
 	cout << "\n\t See you next time! \n";
 	return 0;
 }

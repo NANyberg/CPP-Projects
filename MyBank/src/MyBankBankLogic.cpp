@@ -29,7 +29,7 @@ std::vector<std::string> BankLogic::getAllCustomers() {
 	return custVector;
 }
 
-std::vector<std::string> BankLogic::getCustomer(string pNo) {
+std::vector<std::string> BankLogic::getCustomer(string& pNo) {
 	std::vector<std::string> myCustomer;
 	for (Customer& c : myCustomers) {
 		if (c.getPersonalNumber() == pNo) {
@@ -78,8 +78,8 @@ bool BankLogic::changeCustomerName(std::string& name, std::string& surname, std:
 }
 
 bool BankLogic::changeCustomerPersonalNumber(std::string& pNo, std::string& password) {
-	std::string correctPassword = "Ändrapno";
-	
+	std::string correctPassword = "changepno";
+
 	for (Customer& c: myCustomers) {
 		if (c.getPersonalNumber() == pNo) {
 			if (password == correctPassword) {

@@ -6,7 +6,7 @@ protected:
 
 public:
 	std::vector<std::string> getAllCustomers();
-	std::vector<std::string> getCustomer(std::string pNo);
+	std::vector<std::string> getCustomer(std::string& pNo);
 
 	std::string closeAccount(std::string& pNo, int& accountId);
 	
